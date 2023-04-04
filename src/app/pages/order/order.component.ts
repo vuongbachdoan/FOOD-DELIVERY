@@ -16,7 +16,25 @@ export class OrderComponent implements AfterViewInit {
   map: any;
 
   constructor() {
-    Amplify.configure(environment.amplify);
+    Amplify.configure({
+      Auth: {
+        identityPoolId: process.env['POOL_ID'],
+        region: 'us-east-1',
+      },
+      geo: {
+        AmazonLocationService: {
+          maps: {
+            items: {
+              AmazonMap: {
+                style: 'Default style',
+              }
+            },
+            default: 'AmazonMap',
+          },
+          region: 'us-east-1',
+        },
+      },
+    });
   }
 
   public ngAfterViewInit(): void {
